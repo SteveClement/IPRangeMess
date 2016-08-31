@@ -24,10 +24,20 @@ CREATE TABLE `ipv4s` (
         `syslogOut`   ENUM ('NO', 'YES') NOT NULL,
         `MACs`        MEDIUMTEXT NOT NULL,
         `comments`    MEDIUMTEXT,
-        `modifiedTS`  TIMESTAMP,
-        `addedTS`     TIMESTAMP NOT NULL,
-        `deletedTS`   TIMESTAMP,
+        `modifiedTS`  TIMESTAMP NULL DEFAULT NULL,
+        `addedTS`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        `deletedTS`   TIMESTAMP NULL DEFAULT NULL,
         `deleted`     ENUM ('NO', 'YES') NOT NULL,
         PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- 127.0.0.1 sample entry
+--
+
+INSERT INTO `ipv4s` (
+        ip, subnet, hostname, v6, dns, ptr, dhcp, munin, wiki, vm, backup, mailOut, syslogOut, MACs, comments, deleted
+)
+VALUES (
+        INET_ATON('127.0.0.1'), 8, 'localhost', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO','NO','NO','NO','NO', 'MAC-lo|00:00:00:00:00:01', 'Sample localhost entry', 'NO'
+);
