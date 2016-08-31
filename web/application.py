@@ -1,7 +1,14 @@
-#!/bin/env python3
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
 import os
 from flask import Flask, render_template, send_from_directory, request
 from flask_mysqldb import MySQL
+
+try:
+  from secrets import *
+except ImportError:
+  sys.exit("Please create a file with a config dictionary in: secrets.py")
 
 # initialization
 app = Flask(__name__)
@@ -11,6 +18,14 @@ mysql = MySQL(app)
 app.config.update(
     DEBUG = False,
 )
+
+# MySQL configurations
+app.config['MYSQL_USER'] = config['MYSQL_USER']
+app.config['MYSQL_PASSWORD'] = config['MYSQL_PASSWORD']
+app.config['MYSQL_DB'] = 'dbIPRangeMess'
+app.config['MYSQL_HOST'] = 'localhost'
+
+#mysql.init_app(app)
 
 # controllers
 
@@ -30,7 +45,6 @@ def ips():
     return str(rv)
 
 def index():
-    print("app.route /")
     return render_template('index.html')
 
 # launch

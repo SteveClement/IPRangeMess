@@ -14,37 +14,6 @@ pip install Flask uwsgi
 brew install --with-gunzip --with-http2 --with-libressl nginx
 ```
 
-### supervisor & fswatch (OSX)
-```
-brew install supervisor fswatch
-mkdir /usr/local/etc/supervisor.d
-```
-
-/usr/local/etc/supervisor.d/IPRangeMess.ini
-```
-[program:IPRangeMess]
-user=steve
-environment=HOME="/Users/steve",USER="steve"
-command=/path/to/virtual/env/bin/uwsgi -s /tmp/uwsgi.sock -w flask_file_name:app -H /path/to/virtual/env --chmod-socket 666
-command=~/.virtualenvs/IPRangeMess/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ~/.virtualenvs/IPRangeMess/ --chmod-socket=666
-directory=~/Desktop/code/IPRangeMess/web
-autostart=true
-autorestart=true
-stdout_logfile=~/Desktop/code/IPRangeMess/logs/uwsgi.log
-redirect_stderr=true
-stopsignal=QUIT
-```
-
-```
-while [ true ]; do fswatch -r -1 ~/Desktop/code/IPRangeMess/web |xargs -n1 '/Users/steve/Desktop/code/IPRangeMess/bin/IPRangeMess-supervisord-fswatch.sh'; donefswatch -o ~/Desktop/code/IPRangeMess/web |xargs -n1 /Users/steve/Desktop/code/IPRangeMess/bin/IPRangeMess-supervisord-fswatch.sh
-```
-
-### watchman
-```
-watchman watch ~/Desktop/code/IPRangeMess/web
-watchman -- trigger ~/Desktop/code/IPRangeMess/web reload '*.py' -- /Users/steve/Desktop/code/IPRangeMess/bin/IPRangeMess-supervisord-fswatch.sh
-```
-
 ## nginx
 Default Docroot is: /usr/local/var/www
 
@@ -78,7 +47,9 @@ Or, if you don't want/need a background service you can just run:
 
 ## run
 
-~/.virtualenvs/IPRangeMess/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ~/.virtualenvs/IPRangeMess/ --chmod-socket=666
+```
+/Users/steve/Desktop/code/IPRangeMess/bin/IPRangeMess-dev.sh
+```
 
 ## Notes
 
