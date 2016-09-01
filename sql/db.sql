@@ -22,6 +22,7 @@ CREATE TABLE `ipv4s` (
         `backup`      ENUM ('NO', 'YES') NOT NULL,
         `mailOut`     ENUM ('NO', 'YES') NOT NULL,
         `syslogOut`   ENUM ('NO', 'YES') NOT NULL,
+        `pingeable`   ENUM ('NO', 'YES') NOT NULL,
         `MACs`        MEDIUMTEXT NOT NULL,
         `comments`    MEDIUMTEXT,
         `modifiedTS`  TIMESTAMP NULL DEFAULT NULL,
@@ -36,8 +37,8 @@ CREATE TABLE `ipv4s` (
 --
 
 INSERT INTO `ipv4s` (
-        ip, subnet, hostname, v6, dns, ptr, dhcp, munin, wiki, vm, backup, mailOut, syslogOut, MACs, comments, deleted
+        ip, subnet, hostname, v6, dns, ptr, dhcp, munin, wiki, vm, backup, mailOut, syslogOut, pingeable, MACs, comments, deleted
 )
 VALUES (
-        INET_ATON('127.0.0.1'), 8, 'localhost', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO','NO','NO','NO','NO', 'MAC-lo|00:00:00:00:00:01', 'Sample localhost entry', 'NO'
+        INET_ATON('127.0.0.1'), 8, 'localhost', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO','NO','NO','NO','NO', 'YES', 'MAC-lo|00:00:00:00:00:01', 'Sample localhost entry', 'NO'
 );

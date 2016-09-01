@@ -10,8 +10,9 @@ mkdir ~/.virtualenvs
 cd web
 virtualenv ~/.virtualenvs/IPRangeMess
 source ~/.virtualenvs/IPRangeMess/bin/activate
-pip install Flask uwsgi
+pip install Flask flask-mysqldb uwsgi
 brew install --with-gunzip --with-http2 --with-libressl nginx
+brew install mysql
 ```
 
 ## nginx
