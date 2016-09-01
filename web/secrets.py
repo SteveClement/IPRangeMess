@@ -1,4 +1,4 @@
 config = {
-    'MYSQL_DATABASE_USER': 'myUser',
-    'MYSQL_DATABASE_PASSWORD': 'myPassword'
+    'MYSQL_USER': 'myUser',
+    'MYSQL_PASSWORD': 'myPassword'
 }
