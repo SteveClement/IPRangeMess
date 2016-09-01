@@ -1,13 +1,16 @@
 #!/bin/sh
 
+VENV_DIR='~/.virtualenvs/IPRangeMess'
+WEB_DIR='~/code/IPRangeMess/web'
+
 source `which virtualenvwrapper.sh` 2> /dev/null
 if [ "$?" != 0 ]; then
-        cd /Users/steve/.virtualenvs/IPRangeMess
+        cd ${VENV_DIR}
         source bin/activate
 else
         workon IPRangeMess
 fi
 
-cd /Users/steve/Desktop/code/IPRangeMess/web
-#/Users/steve/.virtualenvs/IPRangeMess/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H /Users/steve/.virtualenvs/IPRangeMess/ --chmod-socket=666 --touch-reload /Users/steve/Desktop/code/IPRangeMess/web/application.py
-/Users/steve/.virtualenvs/IPRangeMess/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H /Users/steve/.virtualenvs/IPRangeMess/ --chmod-socket=666 --py-autoreload 1
+cd ${WEB_DIR}
+#${VENV_DIR}/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ${VENV_DIR} --chmod-socket=666 --touch-reload ${WEB_DIR}/application.py
+${VENV_DIR}/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ${VENV_DIR} --chmod-socket=666 --py-autoreload 1

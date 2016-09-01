@@ -2,12 +2,19 @@
 The Mess, the IP Protocol
 
 ## Install dev env
-This assumes you are in the root of this repository.
+This assumes you are near the root of this repository.
 
+```
+cd ~
+mkdir code ; cd code
+git clone https://github.com/SteveClement/IPRangeMess.git
+cd IPRangeMess/web
+```
+
+### OSX
 ```
 pip install virtualenv
 mkdir ~/.virtualenvs
-cd web
 virtualenv ~/.virtualenvs/IPRangeMess
 source ~/.virtualenvs/IPRangeMess/bin/activate
 pip install Flask flask-mysqldb uwsgi
@@ -15,7 +22,19 @@ brew install --with-gunzip --with-http2 --with-libressl nginx
 brew install mysql
 ```
 
+### Ubuntu/Debian Linux
+```
+sudo apt install nginx python3-pip libmysqlclient-dev mysql-server
+pip3 install virtualenv
+mkdir ~/.virtualenvs
+virtualenv ~/.virtualenvs/IPRangeMess
+source ~/.virtualenvs/IPRangeMess/bin/activate
+pip3 install Flask flask-mysqldb uwsgi
+```
+
 ## nginx
+
+### OSX
 Default Docroot is: /usr/local/var/www
 
 The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
@@ -28,10 +47,13 @@ To have launchd start nginx now and restart at login:
 Or, if you don't want/need a background service you can just run:
   nginx
 
-/usr/local/etc/nginx/nginx.conf
+#### /usr/local/etc/nginx/nginx.conf
 ```
+        set $homeWebDir /Users/steve/code/IPRangeMess/web
+        set $virtualEnvDir /Users/steve/.virtualenvs/IPRangeMess
+
         location /static {
-                alias /Users/steve/Desktop/code/IPRangeMess/web/static;
+                alias $homeWebDir/static;
                     }
 
         location / {
@@ -39,8 +61,8 @@ Or, if you don't want/need a background service you can just run:
             index  index.html index.htm;
             include uwsgi_params;
             uwsgi_pass unix:/tmp/uwsgi.sock;
-            uwsgi_param UWSGI_PYHOME /Users/steve/Desktop/code/IPRangeMess/web/venv;
-            uwsgi_param UWSGI_CHDIR /Users/steve/Desktop/code/IPRangeMess/web;
+            uwsgi_param UWSGI_PYHOME $virtualEnvDir;
+            uwsgi_param UWSGI_CHDIR $homeWebDir;
             uwsgi_param UWSGI_MODULE application;
             uwsgi_param UWSGI_CALLABLE app;
         }
@@ -49,13 +71,14 @@ Or, if you don't want/need a background service you can just run:
 ## run
 
 ```
-/Users/steve/Desktop/code/IPRangeMess/bin/IPRangeMess-dev.sh
+~/code/IPRangeMess/bin/IPRangeMess-dev.sh
 ```
 
 ## Notes
-
 services(snmp, ssh, mysql, PRIMARY KEY id)
 
+
+### IP Addresses in MySQL
 Since IPv4 addresses are 4 byte long, you could use an INT (UNSIGNED) that has exactly 4 bytes:
 
 `ipv4` INT UNSIGNED
