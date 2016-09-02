@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-VENV_DIR='~/.virtualenvs/IPRangeMess'
-WEB_DIR='~/code/IPRangeMess/web'
+VENV_DIR="${HOME}/.virtualenvs/IPRangeMess"
+WEB_DIR="${HOME}/code/IPRangeMess/web"
 
 source `which virtualenvwrapper.sh` 2> /dev/null
 if [ "$?" != 0 ]; then

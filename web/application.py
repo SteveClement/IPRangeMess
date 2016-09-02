@@ -3,8 +3,11 @@
 #
 import os
 import subprocess as sp
+from datetime import datetime
 from flask import Flask, render_template, send_from_directory, request
 from flask_mysqldb import MySQL
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 
 try:
   from secrets import *
@@ -15,6 +18,8 @@ except ImportError:
 app = Flask(__name__)
 
 mysql = MySQL(app)
+moment = Moment(app)
+bootstrap = Bootstrap(app)
 
 app.config.update(
     DEBUG = False,
@@ -33,6 +38,10 @@ app.config['MYSQL_HOST'] = 'localhost'
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 500
 
 @app.route('/favicon.ico')
 def favicon():
@@ -53,7 +62,11 @@ def ipcheck(host):
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_time=datetime.utcnow())
+
+@app.route("/ip")
+def ip():
+    return render_template('ip.html', current_time=datetime.utcnow())
 
 # launch
 if __name__ == "__main__":
