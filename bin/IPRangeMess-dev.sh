@@ -12,5 +12,4 @@ else
 fi
 
 cd ${WEB_DIR}
-#${VENV_DIR}/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ${VENV_DIR} --chmod-socket=666 --touch-reload ${WEB_DIR}/application.py
-${VENV_DIR}/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ${VENV_DIR} --chmod-socket=666 --py-autoreload 1
+${VENV_DIR}/bin/uwsgi -s /tmp/uwsgi.sock -w application:app -H ${VENV_DIR} --chmod-socket=666 --py-autoreload 1 --touch-reload ${WEB_DIR}/templates/base.html
