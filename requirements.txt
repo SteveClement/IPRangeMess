@@ -1,6 +1,8 @@
 Flask
 flask-wtf
-flask-mysqldb
 flask-moment
 flask-bootstrap
+flask-sqlalchemy
 uwsgi
+raven
+blinker
