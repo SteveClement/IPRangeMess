@@ -1,0 +1,5 @@
+Flask
+flask-mysqldb
+flask-moment
+flask-bootstrap
+uwsgi

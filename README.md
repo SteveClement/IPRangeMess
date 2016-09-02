@@ -17,19 +17,19 @@ pip install virtualenv
 mkdir ~/.virtualenvs
 virtualenv ~/.virtualenvs/IPRangeMess
 source ~/.virtualenvs/IPRangeMess/bin/activate
-pip install Flask flask-mysqldb uwsgi
-brew install --with-gunzip --with-http2 --with-libressl nginx
 brew install mysql
+brew install --with-gunzip --with-http2 --with-libressl nginx
+pip install -r requirements.txt
 ```
 
 ### Ubuntu/Debian Linux
 ```
-sudo apt install nginx python3-pip libmysqlclient-dev mysql-server
+sudo apt install nginx python3-pip libmysqlclient-dev mysql-server virtualenv
 pip3 install virtualenv
 mkdir ~/.virtualenvs
-virtualenv ~/.virtualenvs/IPRangeMess
+virtualenv -p python3 ~/.virtualenvs/IPRangeMess
 source ~/.virtualenvs/IPRangeMess/bin/activate
-pip3 install Flask flask-mysqldb uwsgi
+pip3 install -r requirements.txt
 ```
 
 ## nginx
@@ -49,8 +49,8 @@ Or, if you don't want/need a background service you can just run:
 
 #### /usr/local/etc/nginx/nginx.conf
 ```
-        set $homeWebDir /Users/steve/code/IPRangeMess/web
-        set $virtualEnvDir /Users/steve/.virtualenvs/IPRangeMess
+        set $homeWebDir /Users/steve/code/IPRangeMess/web;
+        set $virtualEnvDir /Users/steve/.virtualenvs/IPRangeMess;
 
         location /static {
                 alias $homeWebDir/static;
