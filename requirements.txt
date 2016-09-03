@@ -6,3 +6,4 @@ flask-sqlalchemy
 uwsgi
 raven
 blinker
+flask-script
