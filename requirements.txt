@@ -1,9 +1,9 @@
 Flask
 flask-wtf
 flask-moment
+flask-script
 flask-bootstrap
 flask-sqlalchemy
 uwsgi
 raven
 blinker
-flask-script

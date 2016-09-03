@@ -8,6 +8,7 @@ from flask import Flask, render_template, session, redirect, url_for, flash, sen
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from flask_script import Shell, Manager
 from flask_wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
@@ -36,6 +37,7 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 ##sentry = Sentry(app, dsn='<YOUR_DSN>')
 moment = Moment(app)
+manager = Manager(app)
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 
@@ -73,32 +75,49 @@ class User(db.Model):
 class IPv4s(db.Model):
   __tablename__ = 'ipv4s'
   id = db.Column(db.Integer, primary_key=True)
-  ip = db.Column(db.Integer)
-  subnet = db.Column(db.SmallInteger)
+  ip = db.Column(db.Integer, nullable=False)
+  subnet = db.Column(db.SmallInteger, nullable=False)
   hostname = db.Column(db.String(255), nullable=True)
   aliases = db.Column(db.String(255), nullable=True)
   vlan = db.Column(db.SmallInteger, nullable=True)
   services = db.Column(db.Text, nullable=True)
-  v6 = db.Column(db.Enum)
-  dns = db.Column(db.Enum)
-  ptr = db.Column(db.Enum)
-  dhcp = db.Column(db.Enum)
-  munin = db.Column(db.Enum)
-  wiki = db.Column(db.Enum)
-  vm = db.Column(db.Enum)
-  backup = db.Column(db.Enum)
-  mailOut = db.Column(db.Enum)
-  syslogOut = db.Column(db.Enum)
-  pingeable = db.Column(db.Enum)
-  MACs = db.Column(db.Text)
+  v6 = db.Column(db.Enum, nullable=False)
+  dns = db.Column(db.Enum, nullable=False)
+  ptr = db.Column(db.Enum, nullable=False)
+  dhcp = db.Column(db.Enum, nullable=False)
+  munin = db.Column(db.Enum, nullable=False)
+  wiki = db.Column(db.Enum, nullable=False)
+  vm = db.Column(db.Enum, nullable=False)
+  backup = db.Column(db.Enum, nullable=False)
+  mailOut = db.Column(db.Enum, nullable=False)
+  syslogOut = db.Column(db.Enum, nullable=False)
+  pingeable = db.Column(db.Enum, nullable=False)
+  MACs = db.Column(db.Text, nullable=False)
   comments = db.Column(db.Text, nullable=True)
-  modifiedTS = db.Column(db.DateTime)
-  addedTS = db.Column(db.DateTime)
-  deletedTS = db.Column(db.DateTime)
-  deleted = db.Column(db.Enum)
+  modifiedTS = db.Column(db.DateTime, nullable=False)
+  addedTS = db.Column(db.DateTime, nullable=False)
+  deletedTS = db.Column(db.DateTime, nullable=False)
+  deleted = db.Column(db.Enum, nullable=False)
 
   def __repr__(self):
     return '<IPv4s %r>' % self.ip
+
+
+# Helper Functions et al.
+
+def make_shell_context():
+  return dict(app=app, db=db, User=User, Role=Role)
+manager.add_command("shell", Shell(make_context=make_shell_context))
+
+def ips():
+  return IPv4s.query.all()
+
+def ipcheck(host):
+  status,result = sp.getstatusoutput("ping -c1 -w2 " + str(host))
+  if status == 0:
+      print("System " + str(host) + " is UP !")
+  else:
+      print("System " + str(host) + " is DOWN !")
 
 # controllers
 
@@ -117,16 +136,6 @@ def page_not_found(e):
 @app.route('/favicon.ico')
 def favicon():
   return send_from_directory(os.path.join(app.root_path, 'static'), 'ico/favicon.ico')
-
-def ips():
-  return IPv4s.query.all()
-
-def ipcheck(host):
-  status,result = sp.getstatusoutput("ping -c1 -w2 " + str(host))
-  if status == 0:
-      print("System " + str(host) + " is UP !")
-  else:
-      print("System " + str(host) + " is DOWN !")
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -147,4 +156,4 @@ def ip():
 
 # launch
 if __name__ == "__main__":
-  app.run()
+  manager.run()
