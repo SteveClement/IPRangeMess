@@ -1,4 +1,5 @@
--r commont.txt
+-r common.txt
 requests
 httpie
 coverage
+ForgeryPy
