@@ -2,5 +2,5 @@
 requests
 httpie
 coverage
-bleach
+selenium
 ForgeryPy
