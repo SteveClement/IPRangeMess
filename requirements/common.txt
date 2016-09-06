@@ -1,5 +1,6 @@
 Flask
 flask-wtf
+Flask-mail
 flask-moment
 flask-script
 flask-bootstrap
