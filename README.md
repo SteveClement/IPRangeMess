@@ -8,28 +8,26 @@ This assumes you are near the root of this repository.
 cd ~
 mkdir code ; cd code
 git clone https://github.com/SteveClement/IPRangeMess.git
-cd IPRangeMess/web
+cd IPRangeMess
 ```
 
 ### OSX
 ```
 pip install virtualenv
-mkdir ~/.virtualenvs
-virtualenv ~/.virtualenvs/IPRangeMess
-source ~/.virtualenvs/IPRangeMess/bin/activate
+virtualenv -p python3 app/venv
+source ~/code/IPRangeMess/bin/activate
 brew install mysql
 brew install --with-gunzip --with-http2 --with-libressl nginx
-pip install -r requirements.txt
+pip install -r requirements/dev.txt
 ```
 
 ### Ubuntu/Debian Linux
 ```
 sudo apt install nginx python3-pip libmysqlclient-dev mysql-server virtualenv
 pip3 install virtualenv
-mkdir ~/.virtualenvs
-virtualenv -p python3 ~/.virtualenvs/IPRangeMess
-source ~/.virtualenvs/IPRangeMess/bin/activate
-pip3 install -r requirements.txt
+virtualenv -p python3 app/venv
+source ~/code/IPRangeMess/bin/activate
+pip3 install -r requirements/dev.txt
 ```
 
 ## nginx
@@ -49,8 +47,8 @@ Or, if you don't want/need a background service you can just run:
 
 #### /usr/local/etc/nginx/nginx.conf
 ```
-        set $homeWebDir /Users/steve/code/IPRangeMess/web;
-        set $virtualEnvDir /Users/steve/.virtualenvs/IPRangeMess;
+        set $homeWebDir /Users/steve/code/IPRangeMess/app;
+        set $virtualEnvDir /Users/steve/code/IPRangeMess/app/venv;
 
         location /static {
                 alias $homeWebDir/static;
