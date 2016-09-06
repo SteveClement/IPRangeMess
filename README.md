@@ -15,10 +15,10 @@ cd IPRangeMess
 ```
 pip install virtualenv
 virtualenv -p python3 app/venv
-source ~/code/IPRangeMess/bin/activate
+source ~/code/IPRangeMess/app/venv/bin/activate
 brew install mysql
 brew install --with-gunzip --with-http2 --with-libressl nginx
-pip install -r requirements/dev.txt
+pip install -U -r requirements/dev.txt
 ```
 
 ### Ubuntu/Debian Linux
@@ -26,8 +26,8 @@ pip install -r requirements/dev.txt
 sudo apt install nginx python3-pip libmysqlclient-dev mysql-server virtualenv
 pip3 install virtualenv
 virtualenv -p python3 app/venv
-source ~/code/IPRangeMess/bin/activate
-pip3 install -r requirements/dev.txt
+source ~/code/IPRangeMess/app/venv/bin/activate
+pip3 install -U -r requirements/dev.txt
 ```
 
 ## nginx
