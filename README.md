@@ -1,6 +1,18 @@
 # IPRange_Mess
 The Mess, the IP Protocol
 
+## Important Notes /!\
+
+### Working offline (aka. No Internetz)
+When developing with Flask-Bootstrap or Flask-Moment make sure to either cache the the JS files or do an offline installl.
+Once the Internet is gone, and you do a hard refresh, it tries to re-download these files from the Web.
+
+### uWSGI et al.
+
+There are a few ways to run, test, debug a Flask project.
+By far the easiest is to use the internal WSGI interface and just not bother about it. For performance and cleanliness reasons you might want to use a web browser to relay the WSGI calls.
+The solution proposed in this project, works for me. There might be better and more elegant ways to implement such a "server-side" schim. If there is, please let me know.
+
 ## Install dev env
 This assumes you are near the root of this repository.
 
@@ -61,8 +73,8 @@ Or, if you don't want/need a background service you can just run:
             uwsgi_pass unix:/tmp/uwsgi.sock;
             uwsgi_param UWSGI_PYHOME $virtualEnvDir;
             uwsgi_param UWSGI_CHDIR $homeWebDir;
-            uwsgi_param UWSGI_MODULE application;
-            uwsgi_param UWSGI_CALLABLE app;
+            uwsgi_param UWSGI_CALLABLE application;
+            #uwsgi_param UWSGI_MODULE application;
         }
 ```
 
