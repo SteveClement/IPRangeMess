@@ -1,6 +1,11 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+try:
+  from app.secrets import *
+except ImportError:
+  sys.exit("Please create a file with a config dictionary in: secrets.py")
+
 class Config:
   # Flask-WTF Config
   SECRET_KEY =  os.environ.get('SECRET_KEY') or 'H4rd t0 gu3ss $tr1ng -> Ch4nge M3!!!'
@@ -17,6 +22,7 @@ class Config:
   IPRM_MAIL_SENDER = 'IPRangeMess Admin <iprm@example.com>'
   IPRM_ADMIN = os.environ.get('IPRM_ADMIN')
   IPRM_SLOW_DB_QUERY_TIME=0.5
+
 
   @staticmethod
   def init_app(app):

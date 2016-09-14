@@ -2,6 +2,8 @@
 #
 from datetime import datetime
 import bleach
+import hashlib
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app, request, url_for
 from app.exceptions import ValidationError
 from . import db
@@ -41,8 +43,10 @@ class User(db.Model):
   email = db.Column(db.String(64), unique=True, index=True)
   username = db.Column(db.String(64), unique=True, index=True)
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-  confirmed = db.Column(db.Boolean, default=False)
+  password_hash = db.Column(db.String(128))
+  confirmed = db.Column(db.Boolean, default=True)
   name = db.Column(db.String(64))
+  member_since = db.Column(db.DateTime(), default=datetime.utcnow)
   last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
   def __repr__(self):
@@ -58,7 +62,9 @@ class User(db.Model):
     for i in range(count):
       u = User(email=forgery_py.internet.email_address(),
                username=forgery_py.internet.username(True),
+               password=forgery_py.lorem_ipsum.word(),
                confirmed=True,
+               member_since=forgery_py.date.date(True),
                name=forgery_py.name.full_name())
       db.session.add(u)
       try:

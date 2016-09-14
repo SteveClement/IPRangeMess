@@ -19,11 +19,6 @@ from app import create_app, db
 from app.models import User, Role
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
-try:
-  from app.secrets import *
-except ImportError:
-  sys.exit("Please create a file with a config dictionary in: secrets.py")
-
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
