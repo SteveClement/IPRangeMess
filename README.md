@@ -105,3 +105,18 @@ And use PHP’s inet_pton and inet_ntop for conversion:
 'SELECT `ipv6` FROM `table`'
 $ipv6 = inet_pton($row['ipv6']);
 
+#### If all else fails
+
+You can alaways use python to get the same INET_ATON/INET__NTOA results:
+
+from IP to Integer
+```
+import socket, struct
+print(struct.unpack("!I", socket.inet_aton('127.0.0.1'))[0])
+```
+
+from Integer to IP
+```
+import socket, struct
+print(socket.inet_ntoa(struct.pack("!I", 2130706433)))
+```
