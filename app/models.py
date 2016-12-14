@@ -54,7 +54,7 @@ class User(db.Model):
 
   @staticmethod
   def generate_fake(count=100):
-    from sqlalchemy.exc import IntegrityError
+    from flask_sqlalchemy import IntegrityError
     from random import seed
     import forgery_py
 

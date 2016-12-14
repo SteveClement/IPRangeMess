@@ -5,3 +5,4 @@ coverage
 selenium
 ForgeryPy
 ipython
+flask-debugtoolbar

@@ -7,6 +7,7 @@ from datetime import datetime
 from flask import Flask, render_template, session, redirect, url_for, flash, send_from_directory, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_moment import Moment
 from flask_script import Shell, Manager
 from flask_wtf import Form
@@ -38,6 +39,7 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 ##sentry = Sentry(app, dsn='<YOUR_DSN>')
 moment = Moment(app)
 manager = Manager(app)
+toolbar = DebugToolbarExtension(app)
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 

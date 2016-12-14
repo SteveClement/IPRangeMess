@@ -70,7 +70,8 @@ Or, if you don't want/need a background service you can just run:
             root   html;
             index  index.html index.htm;
             include uwsgi_params;
-            uwsgi_pass unix:/tmp/uwsgi.sock;
+            # make sure the sock below is in-line with your ini file
+            uwsgi_pass unix:/tmp/uwsgi_application.sock;
             uwsgi_param UWSGI_PYHOME $virtualEnvDir;
             uwsgi_param UWSGI_CHDIR $homeWebDir;
             uwsgi_param UWSGI_CALLABLE application;
