@@ -29,7 +29,7 @@ pip install virtualenv
 virtualenv -p python3 app/venv
 source ~/code/IPRangeMess/app/venv/bin/activate
 brew install mysql
-brew install --with-gunzip --with-http2 --with-libressl nginx
+brew install --with-gunzip --with-http2 nginx
 pip install -U -r requirements/dev.txt
 ```
 
