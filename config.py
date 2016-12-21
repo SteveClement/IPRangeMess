@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 try:
   from app.secrets import *
 except ImportError:
-  sys.exit("Please create a file with a config dictionary in: secrets.py")
+  sys.exit("Please create a file with a config dictionary in: app/secrets.py")
 
 class Config:
   # Flask-WTF Config
